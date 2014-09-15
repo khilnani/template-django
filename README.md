@@ -1,7 +1,7 @@
 
 Environment Variables
 
-If you are using VirtualEnv, switch to VirtualEnv and then ensure the below variables are set. If not, please set this up in your `~/.bashrc`, `~/.profile` or similar.
+If you are using virtualenv, switch to virtualenv and then ensure the below variables are set. If not, please set this up in your `~/.bashrc`, `~/.profile` or similar.
 
 - `export ENV=local|dev|stage|production`
   - These match the `./src/uwsgi.ini` file. You may customize that file as needed.
@@ -13,7 +13,7 @@ If you are using VirtualEnv, switch to VirtualEnv and then ensure the below vari
 Commands
 
 - `./run.sh`
-  - If no `VIRTUAL_ENV` or `./venv` is found, will attempt to create a new VirtualEnv
+  - If no `$VIRTUAL_ENV` or `./venv` is found, will attempt to create a new virtualenv
 - `./run.sh bin/ACTION.sh`
   - `ACTION` can be one of the following: 
     - `setup.sh` - to install dependencies and create required directories etc.
