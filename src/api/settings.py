@@ -67,20 +67,26 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': cfg.get('DBNAME'),
-#        'USER': cfg.get('DBUSER'),
-#        'PASSWORD': cfg.get('DBPASS'),
-#        'HOST': cfg.get('DBIP'),
-#        'PORT': cfg.get('DBPORT'),
-#    }
-}
+if cfg.get('DB') == "sqlite":
+  print "Using DB sqlite"
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.sqlite3',
+          'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+      }
+  }
+elif cfg.get('DB') == "postgresql":
+  print "Using DB postgresql"
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'NAME': cfg.get('DB_NAME'),
+          'USER': cfg.get('DB_USER'),
+          'PASSWORD': cfg.get('DB_PASS'),
+          'HOST': cfg.get('DB_HOST'),
+          'PORT': cfg.get('DB_PORT'),
+      }
+  }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

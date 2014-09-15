@@ -1,7 +1,3 @@
 {
-  "DBNAME":   "",
-  "DBUSER":   "",
-  "DBPASS":   "",
-  "DBIP":     "",
-  "DBPORT":   ""
+  "DB": "sqlite"
 }
