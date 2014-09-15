@@ -16,6 +16,7 @@ Commands
   - If no `VIRTUAL_ENV` or `./venv` is found, will attempt to create a new VirtualEnv
 - `./run.sh bin/ACTION.sh`
   - `ACTION` can be one of the following: 
+    - `setup.sh` - to install dependencies and create required directories etc.
     - `syncdb.sh`
     - `migrate.sh`
     - `collectstatic.sh` to agregate static files to /static/
