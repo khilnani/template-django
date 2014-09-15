@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$VIRTUAL_ENV" != "" ]; then
-  echo "Running setup.sh using virtualenv: $VIRTUAL_ENV"
+  echo "Run setup.sh using virtualenv: $VIRTUAL_ENV"
   read -p "Continue? (y/n):" yn
 
   if [ "$yn" == "y" ]; then
