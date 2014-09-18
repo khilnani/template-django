@@ -1,10 +1,14 @@
 #!/bin/sh
 
+echo "$1"
+
 if [ "$VIRTUAL_ENV" != "" ]; then
   echo "Run setup.sh using virtualenv: $VIRTUAL_ENV"
-  read -p "Continue? (y/n):" yn
+  if [ "$1" != "-f" ]; then
+    read -p "Continue? (y/n):" yn
+  fi
 
-  if [ "$yn" == "y" ]; then
+  if [ "$1"=="-f" ] || [ "$yn"=="y" ]; then
     pip install -r requirements.txt
     mkdir static
     mkdir logs
