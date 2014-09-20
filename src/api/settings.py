@@ -66,8 +66,8 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-if cfg.get('DB') == "sqlite":
+cfg_db = cfg.get('db')
+if cfg_db.get('type') == "sqlite":
   print "Using DB sqlite"
   DATABASES = {
       'default': {
@@ -75,16 +75,16 @@ if cfg.get('DB') == "sqlite":
           'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
       }
   }
-elif cfg.get('DB') == "postgresql":
+elif cfg_db.get('type') == "postgresql":
   print "Using DB postgresql"
   DATABASES = {
       'default': {
           'ENGINE': 'django.db.backends.postgresql_psycopg2',
-          'NAME': cfg.get('DB_NAME'),
-          'USER': cfg.get('DB_USER'),
-          'PASSWORD': cfg.get('DB_PASS'),
-          'HOST': cfg.get('DB_HOST'),
-          'PORT': cfg.get('DB_PORT'),
+          'NAME': cfg_db.get('name'),
+          'USER': cfg_db.get('user'),
+          'PASSWORD': cfg_db.get('pass'),
+          'HOST': cfg_db.get('host'),
+          'PORT': cfg_db.get('port'),
       }
   }
 

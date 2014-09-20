@@ -48,6 +48,6 @@ if [ "$#" -lt 1 ]; then
 fi
 
 export DJANGO_SETTINGS_MODULE=api.settings
-export CONFIG_URL=file://$CONFIG_DIR/$ENV.json
+export CONFIG_URL=file://$CONFIG_DIR/$ENV.yaml
 
 ${@}
