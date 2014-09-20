@@ -41,12 +41,13 @@ else
   echo "Using CONFIG_DIR: $CONFIG_DIR"
 fi
 
-if [ "$#" -ne 1 ]; then
-  echo "USAGE: $0 bin/ACTION.sh"
+if [ "$#" -lt 1 ]; then
+  echo "USAGE: $0 ./bin/ACTION.sh   eg. $0 ./bin/setup.sh"
+  echo "USAGE: $0 COMMAND           eg. $0 python manage.py validate"
   exit 1
 fi
 
 export DJANGO_SETTINGS_MODULE=api.settings
 export CONFIG_URL=file://$CONFIG_DIR/$ENV.json
 
-./${@}
+${@}
