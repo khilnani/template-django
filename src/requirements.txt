@@ -4,5 +4,6 @@ django-cors-headers==0.12
 drf-extensions==0.2.5
 django-rest-swagger==0.1.14
 uwsgi==2.0.7
+pyyaml==3.11
 pysqlite==2.6.3
 psycopg2==2.5.4
