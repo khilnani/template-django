@@ -18,7 +18,7 @@ Commands
   - If no `$VIRTUAL_ENV` or `./venv` is found, will attempt to create a new virtualenv
 - `./run.sh COMMAND` if you know the command to run. This will setup the env variables and run your command
   - eg. `./run.sh python manage.py validate`
-- `./run.sh bin/ACTION.sh`
+- `./run.sh ./bin/ACTION.sh`
   - `ACTION` can be one of the following: 
     - `setup.sh` - to install dependencies and create required directories etc.
     - `syncdb.sh`
