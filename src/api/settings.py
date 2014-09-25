@@ -157,7 +157,7 @@ LOGGING = {
     }
 }
 
-if ENV != "production":
+if ENV in ["local","dev"]:
   DEBUG = True
   TEMPLATE_DEBUG = True
   
