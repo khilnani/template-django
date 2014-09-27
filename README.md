@@ -26,3 +26,8 @@ Commands
     - `collectstatic.sh` to agregate static files to /static/
     - `debug.sh` to use Django server
     - `start.sh` or `stop.sh` to use uWSGI
+
+> Check `db/` for postgres database dump and restoration
+
+
+
