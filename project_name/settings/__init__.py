@@ -9,7 +9,7 @@ try:
 except ImportError:
     pass
 
-env = os.environ.get("{{ project_name }}_ENV".upper(), 'development')
+env = os.environ.get("ENV", 'development')
 print('Environment: {}'.format(env))
 
 try:
