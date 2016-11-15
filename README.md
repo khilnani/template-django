@@ -7,7 +7,7 @@ To use this Template:
 ```
 django-admin startproject project_name project_dir \
   --template=https://github.com/khilnani/template-django/zipball/master \
-  --extension=py,md,yml,ini \
+  --extension=py,md,yml,ini,sh \
   --name=Makefile,.coveragerc,.gitignore
 ```
 - in the project directory, run:
