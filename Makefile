@@ -36,11 +36,11 @@ setup:
 update:
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/dev.txt
 
+db:
+	python manage.py migrate
+
 user:
 	python manage.py createsuperuser
-
-migrate:
-	python manage.py migrate
 
 dev:
 	{{ project_name }}_ENV=development python manage.py runserver
