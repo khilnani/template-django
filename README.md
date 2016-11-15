@@ -14,7 +14,6 @@ django-admin startproject project_name project_name --template=https://github.co
   - Admin user setup - `make user`
   - Django server
     - Development config - `make dev`
-    - Production config - `make prod`
   - uWsgi server:
     - Collect static files - `make static`
     - Start - `make start`
