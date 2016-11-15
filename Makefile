@@ -28,15 +28,14 @@ setup:
 	echo "DJANGO_SETTINGS_MODULE={{ project_name }}.settings" > .env
 	@echo
 	@echo "workon {{ project_name }}"
-	@echo "createdb {{ project_name }} -U {{ project_name }} -W -h 127.0.0.1"
-	@echo "python manage.py migrate"
+	@echo "If postgres: createdb {{ project_name }} -U {{ project_name }} -W -h 127.0.0.1"
 	@echo
 
 
 update:
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/dev.txt
 
-db:
+migrations:
 	python manage.py migrate
 
 user:
