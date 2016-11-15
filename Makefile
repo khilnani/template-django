@@ -43,16 +43,16 @@ user:
 	python manage.py createsuperuser
 
 dev:
-	{{ project_name }}_ENV=development python manage.py runserver
+	ENV=development python manage.py runserver
 
 prod:
-	{{ project_name }}_ENV=production python manage.py runserver
+	ENV=production python manage.py runserver
 
 static:
 	python manage.py collectstatic
 
 start:
-	{{ project_name }}_ENV=production PORT=8000 uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/{{ project_name }}
+	ENV=production PORT=8000 uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/{{ project_name }}
 
 stop:
 	uwsgi --stop uwsgi.pid
