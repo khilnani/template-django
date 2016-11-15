@@ -13,7 +13,7 @@ django-admin startproject project_name project_dir \
 - in the project directory, run:
   - Create Virtual Env and install dependencies - `make setup`
   - Switch to Virtual Env - `workon project_name`
-  - Setup DB (sqlite3 by default) - `make db`
+  - Setup DB (sqlite3 by default) - `make migrations`
   - Admin user setup - `make user`
   - Django server
     - Development config - `make dev`
