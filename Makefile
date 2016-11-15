@@ -36,6 +36,12 @@ setup:
 update:
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/dev.txt
 
+user:
+	python manage.py createsuperuser
+
+migrate:
+	python manage.py migrate
+
 dev:
 	{{ project_name }}_ENV=development python manage.py runserver
 
@@ -47,5 +53,6 @@ static:
 
 start:
 	{{ project_name }}_ENV=production PORT=8000 uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/{{ project_name }}
+
 stop:
 	uwsgi --stop uwsgi.pid
