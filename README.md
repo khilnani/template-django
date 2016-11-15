@@ -2,7 +2,7 @@
 To use this Template:
 
 - Install Django - `pip install Django==1.10.3 --upgrade`
-- Create a directory for the project 'mkdir project_dir'
+- Create a directory for the project - `mkdir -p project_dir`
 - Generate the project from the template:
 ```
 django-admin startproject project_name project_dir \
