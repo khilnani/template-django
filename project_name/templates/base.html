@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta-description %}{% endblock %}">
+    <meta name="author" content="{% block meta-author %}{% endblock %}">
+    <meta name="keywords" content="{% block meta-keywords %}{% endblock %}">
+    {% block extra-meta %}{% endblock %}
+    {% block extra-css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        {% block content %}<h1>Welcome, this is a default template.</h1>{% endblock %}
+    </div>
+    {% block extra-js %}{% endblock %}
+</body>
+</html>
