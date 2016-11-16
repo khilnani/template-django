@@ -149,6 +149,7 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static_custom'),
 )
 
 STATICFILES_FINDERS = (
@@ -249,8 +250,10 @@ SWAGGER_SETTINGS = {
     },
 }
 
-
-
+# http://django-suit.readthedocs.io/en/develop/configuration.html
+SUIT_CONFIG = {
+    'ADMIN_NAME': '{{ project_name }}',
+}
 
 
 
