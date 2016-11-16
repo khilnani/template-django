@@ -36,6 +36,7 @@ update:
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/dev.txt
 
 migrations:
+	python manage.py migrate --run-syncdb
 	python manage.py migrate
 
 user:
