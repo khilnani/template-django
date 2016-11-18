@@ -35,7 +35,10 @@ ADMINS = (
 # Application definition
 
 INSTALLED_APPS = [
-    'suit',
+    'django_extensions',
+    'grappelli',
+#    'suit',
+    'django.contrib.admin.apps.SimpleAdminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +49,10 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'corsheaders',
+    'djcelery',
+    'kombu.transport.django',
+    'constance',
+    'constance.backends.database',
 ]
 
 MIDDLEWARE = [
@@ -251,9 +258,12 @@ SWAGGER_SETTINGS = {
 }
 
 # http://django-suit.readthedocs.io/en/develop/configuration.html
-SUIT_CONFIG = {
-    'ADMIN_NAME': '{{ project_name }}',
-}
+#SUIT_CONFIG = {
+#    'ADMIN_NAME': '{{ project_name }}',
+#}
+
+# http://django-grappelli.readthedocs.io/en/latest/
+GRAPPELLI_ADMIN_TITLE = '{{ project_name }}'
 
 
 
