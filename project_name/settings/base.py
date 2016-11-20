@@ -11,16 +11,18 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import datetime
+import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+print('BASE_DIR', BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '9iw*-2j2psymzx8mbu((ebe+&crkpf0uu&8^olfkq3bo5915!+')
+SECRET_KEY = os.environ.get('SECRET_KEY', '{{ secret_key }}')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +41,6 @@ INSTALLED_APPS = [
     'grappelli',
 #    'suit',
     'django.contrib.admin.apps.SimpleAdminConfig',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -51,8 +52,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'djcelery',
     'kombu.transport.django',
-    'constance',
-    'constance.backends.database',
 ]
 
 MIDDLEWARE = [
@@ -94,21 +93,16 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-'''
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DATABASE_NAME', '{{ project_name }}'),
-        'USER': os.environ.get('DATABASE_USER', '{{ project_name }}'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', '{{ project_name }}'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'PORT': os.environ.get('DATABASE_PORT', '5432'),
-    },
-'''
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': os.environ.get('DATABASE_NAME', '{{ project_name }}'),
+#        'USER': os.environ.get('DATABASE_USER', '{{ project_name }}'),
+#        'PASSWORD': os.environ.get('DATABASE_PASSWORD', '{{ project_name }}'),
+#        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+#        'PORT': os.environ.get('DATABASE_PORT', '5432'),
     }
 }
 
@@ -138,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -164,6 +158,44 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 )
 
+# Cache settings
+
+#CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#        'LOCATION': '127.0.0.1:11211',
+#    }
+#}
+
+# AWS
+
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+
+# Celery settings
+
+djcelery.setup_loader()
+
+CELERYBEAT_SCHEDULE = {
+#    '{{ project_name }}_tasks': {
+#        'task': '',
+#        'schedule': datetime.timedelta(seconds=10)
+#    },
+}
+
+# If using Celery, tell it to obey our logging configuration.
+CELERYD_HIJACK_ROOT_LOGGER = False
+
+CELERY_TIMEZONE = 'UTC'
+
+RABBITMQ_USER = '{{ project_name }}'
+RABBITMQ_PASSWORD = RABBITMQ_USER
+RABBITMQ_VHOST = "/{{ project_name }}"
+RABBITMQ_HOST = "localhost:5672"
+BROKER_URL = 'amqp://{0}:{1}@{2}{3}'.format(RABBITMQ_USER, RABBITMQ_PASSWORD,
+                                            RABBITMQ_HOST, RABBITMQ_VHOST)
+
+# Logging
 
 LOGGING = {
     'version': 1,
@@ -214,8 +246,9 @@ LOGGING = {
     }
 }
 
-# If using Celery, tell it to obey our logging configuration.
-CELERYD_HIJACK_ROOT_LOGGER = False
+# Django extensions settings
+
+SHELL_PLUS = "ipython"
 
 # Make things more secure by default. Run "python manage.py check --deploy"
 # for even more suggestions that you might want to add to the settings,

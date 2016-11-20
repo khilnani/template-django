@@ -28,12 +28,22 @@ setup:
 	echo "DJANGO_SETTINGS_MODULE={{ project_name }}.settings" > .env
 	@echo
 	@echo "workon {{ project_name }}"
-	@echo "If postgres: createdb {{ project_name }} -U {{ project_name }} -W -h 127.0.0.1"
+	@echo "If postgres:"
+	@echo "createdb {{ project_name }} -U {{ project_name }} -W -h 127.0.0.1"
+	@echo
+	@echo "If memcached:"
+	@echo "sudo apt-get install memcached"
+	@echo
+	@echo "If RabbitMQ:"
+	@echo "rabbitmqctl add_user {{ project_name }} {{ project_name }}"
+	@echo "rabbitmqctl add_vhost {{ project_name }}"
+	@echo "rabbitmqctl set_permissions -p {{ project_name }} {{ project_name }} '.*' '.*' '.*'"
+
 	@echo
 
 
 update:
-	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/dev.txt
+	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/development.txt
 
 migrations:
 	python manage.py migrate --run-syncdb
