@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from ..base import INSTALLED_APPS, LOGGING
 
-print('Env: Development')
+print('Config: Development')
 
 # Django Nose
 INSTALLED_APPS += (

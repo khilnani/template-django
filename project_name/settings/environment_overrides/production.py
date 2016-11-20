@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from ..base import INSTALLED_APPS, LOGGING  # NOQAS
 
-print ('Env: Production')
+print ('Config: Production')
 
 DEBUG = False
 ALLOWED_HOSTS = ['*']
