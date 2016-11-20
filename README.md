@@ -30,4 +30,4 @@ django-admin startproject project_name project_dir \
       - http://127.0.0.1:8000/api/detail/
       - http://127.0.0.1:8000/api/task/
       - http://127.0.0.1:8000/api/task/ID
-      - http://127.0.0.1:8000/api/list/ - Create  token in Admin
+      - http://127.0.0.1:8000/api/list/ (Requires auth, create a token in the admin)n
