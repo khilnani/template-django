@@ -21,6 +21,7 @@ django-admin startproject {{ project_name }} {{ project_name }} \
       - Cache - file by default
     - Services:
       - Requires a running RabbitMQ service
+      - Update settings to Postgress/Memcached if using included docker compose
   - Setup the App
     - Update DB schema - `make migrate`
     - Admin user setup - `make user`

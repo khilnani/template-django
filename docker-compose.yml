@@ -1,0 +1,30 @@
+version: '2'
+services:
+    postgres:
+        container_name: postgres
+        image: postgres
+        restart: always
+        environment:
+            - POSTGRES_USER={{ project_name }}
+            - POSTGRES_PASSWORD={{ project_name }}
+            - POSTGRES_DB={{ project_name }}
+        expose:
+            - 5432
+        ports:
+            - "5432:5432"
+    memcached:
+        container_name: memcached
+        image: memcached
+        restart: always
+        expose:
+            - 11211
+        ports:
+            - "11211:11211"
+    rabbit:
+        container_name: rabbit
+        image: rabbitmq:3-management
+        restart: always
+        expose:
+            - 5672
+        ports:
+            - "5672:5672"
