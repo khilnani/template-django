@@ -11,8 +11,6 @@ pyyaml==3.12
 pysqlite===2.8.3
 ipdb==0.10.1
 celery==4.0.0
-librabbitmq==1.6.1
-kombu==4.0.0
 django-celery-results==1.0.1
 django-extensions==1.7.4
 django-grappelli==2.9.1
