@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import datetime
-import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,10 +35,10 @@ ADMINS = (
 # Application definition
 
 INSTALLED_APPS = [
+    '{{ project_name }}.apps.api',
     'django_extensions',
     'grappelli',
-#    'suit',
-    'django.contrib.admin.apps.SimpleAdminConfig',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -49,8 +48,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'corsheaders',
-    'djcelery',
-    'kombu.transport.django',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -157,14 +155,18 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 )
 
-# Cache settings
 
-#CACHES = {
-#    'default': {
+# Cache settings
+# https://docs.djangoproject.com/en/1.10/topics/cache/
+
+CACHES = { 
+    'default': {
 #        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
 #        'LOCATION': '127.0.0.1:11211',
-#    }
-#}
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp/django_cache',
+    }
+}
 
 # AWS
 
@@ -173,14 +175,14 @@ AWS_SECRET_ACCESS_KEY = ''
 
 # Celery settings
 
-djcelery.setup_loader()
-
 CELERYBEAT_SCHEDULE = {
 #    '{{ project_name }}_tasks': {
 #        'task': '',
 #        'schedule': datetime.timedelta(seconds=10)
 #    },
 }
+
+CELERY_RESULT_BACKEND = 'django-cache'
 
 # If using Celery, tell it to obey our logging configuration.
 CELERYD_HIJACK_ROOT_LOGGER = False
@@ -288,11 +290,6 @@ SWAGGER_SETTINGS = {
         }
     },
 }
-
-# http://django-suit.readthedocs.io/en/develop/configuration.html
-#SUIT_CONFIG = {
-#    'ADMIN_NAME': '{{ project_name }}',
-#}
 
 # http://django-grappelli.readthedocs.io/en/latest/
 GRAPPELLI_ADMIN_TITLE = '{{ project_name }}'

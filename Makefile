@@ -1,4 +1,4 @@
-PROJECT_NAME = {{ project_name }}
+PROJECT_NAME = console
 
 default: lint test
 
@@ -13,7 +13,7 @@ lint:
 
 clean:
 	find . -name "*.pyc" -exec rm -rf {} \;
-	rm -rf {{ project_name }}/static
+	rm -rf console/static
 
 # Generate a random string of desired length
 generate-secret: length = 32
@@ -21,31 +21,25 @@ generate-secret:
 	@strings /dev/urandom | grep -o '[[:alnum:]]' | head -n $(length) | tr -d '\n'; echo
 
 setup:
-	virtualenv -p `which python2.7` $(WORKON_HOME)/{{ project_name }}
-	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U pip wheel
-	$(WORKON_HOME)/{{ project_name }}/bin/pip install -Ur requirements/development.txt
-	$(WORKON_HOME)/{{ project_name }}/bin/pip freeze
-	echo "DJANGO_SETTINGS_MODULE={{ project_name }}.settings" > .env
+	virtualenv -p `which python2.7` $(WORKON_HOME)/console
+	$(WORKON_HOME)/console/bin/pip install -U pip wheel
+	$(WORKON_HOME)/console/bin/pip install -Ur requirements/development.txt
+	$(WORKON_HOME)/console/bin/pip freeze
+	echo "DJANGO_SETTINGS_MODULE=console.settings" > .env
 	@echo
-	@echo "workon {{ project_name }}"
-	@echo "If postgres:"
-	@echo "createdb {{ project_name }} -U {{ project_name }} -W -h 127.0.0.1"
-	@echo
-	@echo "If memcached:"
-	@echo "sudo apt-get install memcached"
-	@echo
-	@echo "If RabbitMQ:"
-	@echo "rabbitmqctl add_user {{ project_name }} {{ project_name }}"
-	@echo "rabbitmqctl add_vhost {{ project_name }}"
-	@echo "rabbitmqctl set_permissions -p {{ project_name }} {{ project_name }} '.*' '.*' '.*'"
-
+	@echo "workon console"
+	@echo "createdb console -U console -W -h 127.0.0.1"
+	@echo "python manage.py migrate"
 	@echo
 
+worker:
+	celery -A console worker -l info
 
 update:
-	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/development.txt
+	$(WORKON_HOME)/console/bin/pip install -U -r requirements/development.txt
 
-migrations:
+migrate:
+	python manage.py makemigrations
 	python manage.py migrate --run-syncdb
 	python manage.py migrate
 
@@ -62,7 +56,7 @@ static:
 	python manage.py collectstatic
 
 start:
-	ENV=production PORT=8000 uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/{{ project_name }}
+	ENV=production PORT=8000 uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/console
 
 stop:
 	uwsgi --stop uwsgi.pid
