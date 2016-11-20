@@ -20,16 +20,30 @@ generate-secret: length = 32
 generate-secret:
 	@strings /dev/urandom | grep -o '[[:alnum:]]' | head -n $(length) | tr -d '\n'; echo
 
-setup:
+init:
 	virtualenv -p `which python2.7` $(WORKON_HOME)/{{ project_name }}
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U pip wheel
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -Ur requirements/development.txt
 	$(WORKON_HOME)/{{ project_name }}/bin/pip freeze
-	@echo
+	@echo ""
 	@echo "workon {{ project_name }}"
-	@echo "createdb {{ project_name }} -U {{ project_name }} -W -h 127.0.0.1"
-	@echo "python manage.py migrate"
-	@echo
+	@echo "docker-compose up"
+	@echo "make migrate"
+	@echo "make user"
+	@echo "make worker"
+	@echo ""
+	@echo "Dev:"
+	@echo "make dev"
+	@echo ""
+	@echo "Prod:"
+	@echo "make static"
+	@echo "make start"
+	@echo "make stop"
+	@echo ""
+
+delete:
+	@echo "rm -rf $(WORKON_HOME)/{{ project_name }}"
+	@echo "rm -rf ."
 
 r:
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/development.txt
