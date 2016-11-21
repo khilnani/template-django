@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'corsheaders',
-    'django_celery_results'
+    'django_celery_results',
     'django_celery_beat',
 ]
 
