@@ -88,3 +88,6 @@ start:
 
 stop:
 	uwsgi --stop uwsgi.pid
+
+flower:
+	ENV=production flower -A {{ project_name }} --port=8090 --basic_auth={{ project_name }}:{{ project_name }}
