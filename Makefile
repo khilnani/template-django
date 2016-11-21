@@ -69,13 +69,13 @@ dev:
 	ENV=development python manage.py runserver 0.0.0.0:8080
 
 prod:
-	ENV=production python manage.py runserver
+	ENV=production python manage.py runserver 0.0.0.0:8080
 
 static:
 	python manage.py collectstatic
 
 start:
-	ENV=production PORT=8000 uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/{{ project_name }}
+	ENV=production PORT=8080 uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/{{ project_name }}
 
 stop:
 	uwsgi --stop uwsgi.pid
