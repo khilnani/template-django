@@ -28,6 +28,7 @@ django-admin startproject {{ project_name }} {{ project_name }} \
   - Start the App
     - Common:
       - Start Celery worker - `make worker`
+      - Start Celery schedular - `make beat`
     - Development:
       - `make dev`
     - Production:

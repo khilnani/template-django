@@ -8,6 +8,8 @@ services:
             - POSTGRES_USER={{ project_name }}
             - POSTGRES_PASSWORD={{ project_name }}
             - POSTGRES_DB={{ project_name }}
+        volumes:
+            - /tmp/postgresql-data:/var/lib/postgresql/data
         expose:
             - 5432
         ports:
@@ -24,6 +26,8 @@ services:
         container_name: rabbit
         image: rabbitmq:3-management
         restart: always
+        volumes:
+            - /tmp/rabbitmq-mnesia:/var/lib/rabbitmq/mnesia/
         expose:
             - 5672
         ports:

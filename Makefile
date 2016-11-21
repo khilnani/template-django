@@ -31,6 +31,7 @@ init:
 	@echo "make migrate"
 	@echo "make user"
 	@echo "make worker"
+	@echo "make beat"
 	@echo ""
 	@echo "Dev:"
 	@echo "make dev"
@@ -55,6 +56,12 @@ migrate:
 
 user:
 	python manage.py createsuperuser
+
+beat:
+	# default
+	# celery -A {{ project_name }} beat -s celerybeat-schedule -l info
+	# django_celery_beat
+	celery -A {{ project_name }} beat -l info -S django
 
 worker:
 	celery -A {{ project_name }} worker -l info

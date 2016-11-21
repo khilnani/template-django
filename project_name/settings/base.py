@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+from __future__ import absolute_import, unicode_literals
 import os
 import datetime
 
@@ -31,7 +32,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-
+###############################################################################
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'corsheaders',
     'django_celery_results'
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +89,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
-
+###############################################################################
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {
@@ -103,7 +105,7 @@ DATABASES = {
     }
 }
 
-
+###############################################################################
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -122,8 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
+###############################################################################
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -137,7 +138,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+###############################################################################
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media/'))
@@ -155,7 +156,7 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 )
 
-
+###############################################################################
 # Cache settings
 # https://docs.djangoproject.com/en/1.10/topics/cache/
 
@@ -168,34 +169,31 @@ CACHES = {
     }
 }
 
-# AWS
-
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
-
+###############################################################################
 # Celery settings
 
-CELERYBEAT_SCHEDULE = {
-#    '{{ project_name }}_tasks': {
-#        'task': '',
-#        'schedule': datetime.timedelta(seconds=10)
-#    },
+CELERY_BEAT_SCHEDULE = {
+    'every-10-seconds-add': {
+        'task': '{{ project_name }}.apps.api.tasks.add',
+        'schedule': datetime.timedelta(seconds=10),
+        'args': (1,2,),
+    },
 }
 
-CELERY_RESULT_BACKEND = 'django-cache'
-
+RABBITMQ_USER = 'guest'
+RABBITMQ_PASSWORD = RABBITMQ_USER
+RABBITMQ_VHOST = "/"
+RABBITMQ_HOST = "localhost:5672"
+CELERY_BROKER_URL = 'amqp://{0}:{1}@{2}{3}'.format(RABBITMQ_USER, RABBITMQ_PASSWORD,
+                                            RABBITMQ_HOST, RABBITMQ_VHOST)
 # If using Celery, tell it to obey our logging configuration.
 CELERYD_HIJACK_ROOT_LOGGER = False
-
 CELERY_TIMEZONE = 'UTC'
+CELERY_RESULT_BACKEND = 'django-cache'
+ELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
 
-RABBITMQ_USER = '{{ project_name }}'
-RABBITMQ_PASSWORD = RABBITMQ_USER
-RABBITMQ_VHOST = "/{{ project_name }}"
-RABBITMQ_HOST = "localhost:5672"
-BROKER_URL = 'amqp://{0}:{1}@{2}{3}'.format(RABBITMQ_USER, RABBITMQ_PASSWORD,
-                                            RABBITMQ_HOST, RABBITMQ_VHOST)
-
+###############################################################################
 # Logging
 
 LOGGING = {
@@ -247,6 +245,7 @@ LOGGING = {
     }
 }
 
+###############################################################################
 # Django extensions settings
 
 SHELL_PLUS = "ipython"
@@ -261,7 +260,9 @@ CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 CORS_ORIGIN_ALLOW_ALL = True
 
+###############################################################################
 # Restframework Settings
+
 REST_FRAMEWORK = {
     'UNAUTHENTICATED_USER': None,
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -277,6 +278,8 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': '{{ project_name }}.utils.custom_exception_handler',
 }
 
+###############################################################################
+# Swagger
 
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
