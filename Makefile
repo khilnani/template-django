@@ -60,7 +60,7 @@ beat:
 	# default
 	# celery -A {{ project_name }} beat -s celerybeat-schedule -l info
 	# django_celery_beat
-	celery -A {{ project_name }} beat -l info -S django
+	celery -A {{ project_name }} beat -l info --scheduler django
 
 worker:
 	celery -A {{ project_name }} worker -l info
@@ -69,10 +69,10 @@ worker-root:
 	C_FORCE_ROOT="true" celery -A {{ project_name }} worker -l info
 
 worker-beat:
-	celery -A {{ project_name }} worker -B -S django -l info
+	celery -A {{ project_name }} worker -B --scheduler django -l info
 
 worker-beat-root:
-	C_FORCE_ROOT="true" celery -A {{ project_name }} worker -B -S django -l info
+	C_FORCE_ROOT="true" celery -A {{ project_name }} worker -B --scheduler django -l info
 
 dev:
 	ENV=development python manage.py runserver 0.0.0.0:8080
