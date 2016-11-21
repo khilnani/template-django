@@ -5,9 +5,9 @@ To use this Template:
 - Generate the project from the template
   - Creates a new directory
   - Replace `project_name`
-```
+  ```
 PROJECT_NAME="project_name"; mkdir $PROJECT_NAME && django-admin startproject $PROJECT_NAME $PROJECT_NAME --template=https://github.com/khilnani/template-django/zipball/master --extension=py,md,yml,ini,sh --name=Makefile,.coveragerc,.gitignore
-```
+  ```
 - In the project directory, run:
   - Initialize the project
     - Create Virtual Env and install dependencies
