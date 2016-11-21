@@ -65,6 +65,15 @@ beat:
 worker:
 	celery -A {{ project_name }} worker -l info
 
+worker-root:
+	C_FORCE_ROOT="true" celery -A {{ project_name }} worker -l info
+
+worker-beat:
+	celery -A {{ project_name }} worker -B -S django -l info
+
+worker-beat-root:
+	C_FORCE_ROOT="true" celery -A {{ project_name }} worker -B -S django -l info
+
 dev:
 	ENV=development python manage.py runserver 0.0.0.0:8080
 
