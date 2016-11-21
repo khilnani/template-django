@@ -9,6 +9,8 @@ To use this Template:
 PROJECT_NAME="project_name"; mkdir $PROJECT_NAME && django-admin startproject $PROJECT_NAME $PROJECT_NAME --template=https://github.com/khilnani/template-django/zipball/master --extension=py,md,yml,ini,sh --name=Makefile,.coveragerc,.gitignore
   ```
 - In the project directory, run:
+  - Ubuntu dependencies:
+    - Run - `apt-get install -y build-essential libpq-dev python-dev postgresql-server-dev-all`
   - Initialize the project
     - Create Virtual Env and install dependencies
     - Run - `make init`
