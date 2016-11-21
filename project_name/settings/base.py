@@ -94,14 +94,14 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': os.environ.get('DATABASE_NAME', '{{ project_name }}'),
-#        'USER': os.environ.get('DATABASE_USER', '{{ project_name }}'),
-#        'PASSWORD': os.environ.get('DATABASE_PASSWORD', '{{ project_name }}'),
-#        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-#        'PORT': os.environ.get('DATABASE_PORT', '5432'),
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('DATABASE_NAME', '{{ project_name }}'),
+        'USER': os.environ.get('DATABASE_USER', '{{ project_name }}'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', '{{ project_name }}'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+        'PORT': os.environ.get('DATABASE_PORT', '5432'),
     }
 }
 
@@ -162,10 +162,10 @@ STATICFILES_FINDERS = (
 
 CACHES = { 
     'default': {
-#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#        'LOCATION': '127.0.0.1:11211',
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/tmp/django_cache',
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+#        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#        'LOCATION': '/tmp/django_cache',
     }
 }
 
