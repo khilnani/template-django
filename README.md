@@ -5,7 +5,7 @@ To use this Template:
 - Create a directory for the project - `mkdir -p {{ project_name }}`
 - Generate the project from the template:
 ```
-mkdir {{ project_name }} && django-admin startproject {{ project_name }} {{ project_name }} --template=https://github.com/khilnani/template-django/zipball/master --extension=py,md,yml,ini,sh --name=Makefile,.coveragerc,.gitignore
+PROJECT_NAME="project_name"; mkdir $PROJECT_NAME && django-admin startproject $PROJECT_NAME $PROJECT_NAME --template=https://github.com/khilnani/template-django/zipball/master --extension=py,md,yml,ini,sh --name=Makefile,.coveragerc,.gitignore
 ```
 - In the project directory, run:
   - Initialize the project
