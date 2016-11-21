@@ -66,7 +66,7 @@ worker:
 	celery -A {{ project_name }} worker -l info
 
 dev:
-	ENV=development python manage.py runserver
+	ENV=development python manage.py runserver 0.0.0.0:8080
 
 prod:
 	ENV=production python manage.py runserver
