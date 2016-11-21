@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = console
+source = {{ project_name }}
 omit =
     */migrations/*
     */tests/*
