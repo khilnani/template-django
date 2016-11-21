@@ -13,12 +13,8 @@ PROJECT_NAME="project_name"; mkdir $PROJECT_NAME && django-admin startproject $P
     - Run - `make init`
     - Switch to Virtual Env - `workon {{ project_name }}`
   - Update settings:
-    - Defaults:
-      - DB - sqlite3 by default
-      - Cache - file by default
     - Services:
-      - Requires a running RabbitMQ service
-      - Update settings to Postgress/Memcached if using included docker compose
+      - Requires a running RabbitMQ, Postgres and Memcached service
   - Setup the App
     - Update DB schema - `make migrate`
     - Admin user setup - `make user`
