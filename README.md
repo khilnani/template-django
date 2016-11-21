@@ -2,8 +2,9 @@
 To use this Template:
 
 - Install Django - `pip install Django==1.10.3 --upgrade`
-- Create a directory for the project - `mkdir -p {{ project_name }}`
-- Generate the project from the template:
+- Generate the project from the template
+> - Creates a new directory
+> - Replace `project_name`
 ```
 PROJECT_NAME="project_name"; mkdir $PROJECT_NAME && django-admin startproject $PROJECT_NAME $PROJECT_NAME --template=https://github.com/khilnani/template-django/zipball/master --extension=py,md,yml,ini,sh --name=Makefile,.coveragerc,.gitignore
 ```
