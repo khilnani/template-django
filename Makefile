@@ -43,7 +43,7 @@ init:
 	@echo ""
 
 delete:
-	@echo "rm -rf $(WORKON_HOME)/{{ project_name }}"
+	@echo "rm -rf $(WORKON_HOME)/{{ project_name }} && rm -rf /tmp/postgresql-data && rm -rf /tmp/rabbitmq-mnesia"
 	@echo "rm -rf ."
 
 r:
