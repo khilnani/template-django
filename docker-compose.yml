@@ -26,6 +26,10 @@ services:
         container_name: rabbit
         image: rabbitmq:3-management
         restart: always
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+            - RABBITMQ_DEFAULT_VHOST=/
         volumes:
             - /tmp/rabbitmq-mnesia:/var/lib/rabbitmq/mnesia/
         expose:
