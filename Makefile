@@ -42,9 +42,8 @@ init:
 	@echo "make stop"
 	@echo ""
 
-delete:
-	@echo "rm -rf $(WORKON_HOME)/{{ project_name }} && rm -rf /tmp/postgresql-data && rm -rf /tmp/rabbitmq-mnesia"
-	@echo "rm -rf ."
+reset:
+	rm -rf $(WORKON_HOME)/{{ project_name }} && rm -rf /tmp/postgresql-data && rm -rf /tmp/rabbitmq-mnesia
 
 r:
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/development.txt
