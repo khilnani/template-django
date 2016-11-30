@@ -2,7 +2,7 @@ version: '2'
 services:
     {{ project_name }}-postgres:
         container_name: {{ project_name }}-postgres
-        image: postgres
+        image: postgres:9.6
         restart: always
         environment:
             - POSTGRES_USER={{ project_name }}
@@ -16,7 +16,7 @@ services:
             - "5432:5432"
     {{ project_name }}-memcached:
         container_name: {{ project_name }}-memcached
-        image: memcached
+        image: memcached:1.4
         restart: always
         expose:
             - 11211
@@ -24,7 +24,7 @@ services:
             - "11211:11211"
     {{ project_name }}-rabbit:
         container_name: {{ project_name }}-rabbit
-        image: rabbitmq:3-management
+        image: rabbitmq:3.6-management
         restart: always
         environment:
             - RABBITMQ_DEFAULT_USER=guest
@@ -40,7 +40,7 @@ services:
             - "15672:15672"
     {{ project_name }}-app:
         container_name: {{ project_name }}
-        image: khilnani/pythonlite
+        image: khilnani/pythonlite:0.1
         depends_on:
             - {{ project_name }}-postgres
             - {{ project_name }}-rabbit
@@ -63,7 +63,7 @@ services:
         entrypoint: /opt/{{ project_name }}/env/entrypoint-app.sh
     {{ project_name }}-worker:
         container_name: {{ project_name }}-worker
-        image: khilnani/pythonlite
+        image: khilnani/pythonlite:0.1
         depends_on:
             - {{ project_name }}-postgres
             - {{ project_name }}-rabbit
@@ -84,7 +84,7 @@ services:
         entrypoint: /opt/{{ project_name }}/env/entrypoint-worker.sh
     {{ project_name }}-beat:
         container_name: {{ project_name }}-beat
-        image: khilnani/pythonlite
+        image: khilnani/pythonlite:0.1
         depends_on:
             - {{ project_name }}-postgres
             - {{ project_name }}-rabbit
