@@ -43,13 +43,13 @@ init:
 	@echo ""
 
 reset:
-	rm -rf $(WORKON_HOME)/{{ project_name }} && rm -rf /tmp/postgresql-data && rm -rf /tmp/rabbitmq-mnesia
+	rm -rf $(WORKON_HOME)/{{ project_name }}
 
 cleandb:
-	rm -rf /tmp/postgresql-data
+	rm -rf ./data/postgresql-data
 
 cleanq:
-	rm -rf /tmp/rabbitmq-mnesia
+	rm -rf ./data/rabbitmq-mnesia
 
 r:
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/development.txt

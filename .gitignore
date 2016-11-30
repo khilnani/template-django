@@ -1,5 +1,10 @@
 **/.DS_Store
 
+# Data
+**/postgresql-data
+**/rabbitmq-mnesia
+
+
 # Media
 **/media
 
