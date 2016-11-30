@@ -39,7 +39,7 @@ services:
             - "5672:5672"
             - "15672:15672"
     {{ project_name }}-app:
-        container_name: {{ project_name }}
+        container_name: {{ project_name }}-app
         image: khilnani/pythonlite:0.1
         depends_on:
             - {{ project_name }}-postgres
@@ -60,7 +60,7 @@ services:
         ports:
             - "8080:8080"
             - "8090:8090"
-        entrypoint: /opt/{{ project_name }}/env/entrypoint-app.sh
+        entrypoint: /bin/sh /opt/{{ project_name }}/env/entrypoint-app.sh
     {{ project_name }}-worker:
         container_name: {{ project_name }}-worker
         image: khilnani/pythonlite:0.1
@@ -81,7 +81,7 @@ services:
             - RABBITMQ_VHOST=/
         volumes:
             - .:/opt/{{ project_name }}
-        entrypoint: /opt/{{ project_name }}/env/entrypoint-worker.sh
+        entrypoint: /bin/sh /opt/{{ project_name }}/env/entrypoint-worker.sh
     {{ project_name }}-beat:
         container_name: {{ project_name }}-beat
         image: khilnani/pythonlite:0.1
@@ -102,4 +102,4 @@ services:
             - RABBITMQ_VHOST=/
         volumes:
             - .:/opt/{{ project_name }}
-        entrypoint: /opt/{{ project_name }}/env/entrypoint-beat.sh
+        entrypoint: /bin/sh /opt/{{ project_name }}/env/entrypoint-beat.sh
