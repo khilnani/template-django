@@ -38,3 +38,66 @@ services:
         ports:
             - "5672:5672"
             - "15672:15672"
+    {{ project_name }}:
+        container_name: {{ project_name }}
+        image: khilnani/pythonlite
+        depends_on:
+            - postgres
+            - rabbit
+            - memcached
+        restart: always
+        environment:
+            - ENV=production
+            - PORT=8080
+            - DATABASE_HOST=postgres
+            - "MEMCACHED_HOST=memcached:11211"
+            - RABBITMQ_USER=guest
+            - RABBITMQ_PASSWORD=guest
+            - RABBITMQ_HOST=rabbit
+            - RABBITMQ_VHOST=/
+        volumes:
+            - .:/opt/{{ project_name }}
+        ports:
+            - "8080:8080"
+            - "8090:8090"
+        entrypoint: /opt/{{ project_name }}/env/entrypoint-app.sh
+    {{ project_name }}-worker:
+        container_name: {{ project_name }}-worker
+        image: khilnani/pythonlite
+        depends_on:
+            - postgres
+            - rabbit
+            - memcached
+        restart: always
+        environment:
+            - ENV=production
+            - PORT=8080
+            - DATABASE_HOST=postgres
+            - "MEMCACHED_HOST=memcached:11211"
+            - RABBITMQ_USER=guest
+            - RABBITMQ_PASSWORD=guest
+            - RABBITMQ_HOST=rabbit
+            - RABBITMQ_VHOST=/
+        volumes:
+            - .:/opt/{{ project_name }}
+        entrypoint: /opt/{{ project_name }}/env/entrypoint-worker.sh
+    {{ project_name }}-beat:
+        container_name: {{ project_name }}-beat
+        image: khilnani/pythonlite
+        depends_on:
+            - postgres
+            - rabbit
+            - memcached
+        restart: always
+        environment:
+            - ENV=production
+            - PORT=8080
+            - DATABASE_HOST=postgres
+            - "MEMCACHED_HOST=memcached:11211"
+            - RABBITMQ_USER=guest
+            - RABBITMQ_PASSWORD=guest
+            - RABBITMQ_HOST=rabbit
+            - RABBITMQ_VHOST=/
+        volumes:
+            - .:/opt/{{ project_name }}
+        entrypoint: /opt/{{ project_name }}/env/entrypoint-beat.sh

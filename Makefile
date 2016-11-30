@@ -29,12 +29,12 @@ init:
 	@echo "workon {{ project_name }}"
 	@echo "docker-compose up"
 	@echo "make migrate"
-	@echo "make user"
+	@echo "make admin"
 	@echo "make worker"
 	@echo "make beat"
 	@echo ""
 	@echo "Dev:"
-	@echo "make dev"
+	@echo "make run"
 	@echo ""
 	@echo "Prod:"
 	@echo "make static"
@@ -45,6 +45,12 @@ init:
 reset:
 	rm -rf $(WORKON_HOME)/{{ project_name }} && rm -rf /tmp/postgresql-data && rm -rf /tmp/rabbitmq-mnesia
 
+cleandb:
+	rm -rf /tmp/postgresql-data
+
+cleanq:
+	rm -rf /tmp/rabbitmq-mnesia
+
 r:
 	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/development.txt
 
@@ -53,7 +59,7 @@ migrate:
 	python manage.py migrate --run-syncdb
 	python manage.py migrate
 
-user:
+admin:
 	python manage.py createsuperuser
 
 beat:
@@ -74,20 +80,23 @@ worker-beat:
 worker-beat-root:
 	C_FORCE_ROOT="true" celery -A {{ project_name }} worker -B --scheduler django -l info
 
-dev:
-	ENV=development python manage.py runserver 0.0.0.0:8080
-
-prod:
-	ENV=production python manage.py runserver 0.0.0.0:8080
+run:
+	# ENV=development, production
+	# PORT=8080
+	python manage.py runserver 0.0.0.0:8080
 
 static:
 	python manage.py collectstatic
 
 start:
-	ENV=production PORT=8080 uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/{{ project_name }}
+	# ENV=development, production
+	# PORT=8080
+	# uwsgi --ini uwsgi.ini:production -H $(WORKON_HOME)/{{ project_name }}
+	uwsgi --ini uwsgi.ini:production
 
 stop:
 	uwsgi --stop uwsgi.pid
 
 flower:
-	ENV=production flower -A {{ project_name }} --port=8090 --basic_auth={{ project_name }}:{{ project_name }}
+	# ENV=development, production
+	flower -A {{ project_name }} --port=8090 --basic_auth={{ project_name }}:{{ project_name }}
