@@ -1,7 +1,7 @@
 version: '2'
 services:
-    postgres:
-        container_name: postgres
+    {{ project_name }}-postgres:
+        container_name: {{ project_name }}-postgres
         image: postgres
         restart: always
         environment:
@@ -14,16 +14,16 @@ services:
             - 5432
         ports:
             - "5432:5432"
-    memcached:
-        container_name: memcached
+    {{ project_name }}-memcached:
+        container_name: {{ project_name }}-memcached
         image: memcached
         restart: always
         expose:
             - 11211
         ports:
             - "11211:11211"
-    rabbit:
-        container_name: rabbit
+    {{ project_name }}-rabbit:
+        container_name: {{ project_name }}-rabbit
         image: rabbitmq:3-management
         restart: always
         environment:
@@ -38,13 +38,13 @@ services:
         ports:
             - "5672:5672"
             - "15672:15672"
-    {{ project_name }}:
+    {{ project_name }}-app:
         container_name: {{ project_name }}
         image: khilnani/pythonlite
         depends_on:
-            - postgres
-            - rabbit
-            - memcached
+            - {{ project_name }}-postgres
+            - {{ project_name }}-rabbit
+            - {{ project_name }}-memcached
         restart: always
         environment:
             - ENV=production
@@ -65,9 +65,10 @@ services:
         container_name: {{ project_name }}-worker
         image: khilnani/pythonlite
         depends_on:
-            - postgres
-            - rabbit
-            - memcached
+            - {{ project_name }}-postgres
+            - {{ project_name }}-rabbit
+            - {{ project_name }}-memcached
+            - {{ project_name }}-app
         restart: always
         environment:
             - ENV=production
@@ -85,9 +86,10 @@ services:
         container_name: {{ project_name }}-beat
         image: khilnani/pythonlite
         depends_on:
-            - postgres
-            - rabbit
-            - memcached
+            - {{ project_name }}-postgres
+            - {{ project_name }}-rabbit
+            - {{ project_name }}-memcached
+            - {{ project_name }}-app
         restart: always
         environment:
             - ENV=production
