@@ -8,12 +8,18 @@
     <meta name="author" content="{% block meta-author %}{% endblock %}">
     <meta name="keywords" content="{% block meta-keywords %}{% endblock %}">
     {% block extra-meta %}{% endblock %}
-    {% block extra-css %}{% endblock %}
+    {% block extra-css %}
+    <link rel="stylesheet" href="/static/css/bg-anim.css"/>
+    {% endblock %}
+    {% block extra-js-top %}
+    <script src="/static/js/jquery-2.0.2.min.js"></script>
+    <script src="/static/js/bg-anim.js"></script>>
+    {% endblock %}
 </head>
 <body>
-    <div class="container">
-        {% block content %}<h1>Welcome, this is a default template.</h1>{% endblock %}
-    </div>
+    {% block content %}
+    <div id="gradient" />
+    {% endblock %}
     {% block extra-js %}{% endblock %}
 </body>
 </html>
