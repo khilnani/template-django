@@ -52,7 +52,7 @@ cleanq:
 	rm -rf ./data/rabbitmq-mnesia
 
 r:
-	$(WORKON_HOME)/{{ project_name }}/bin/pip install -U -r requirements/development.txt
+	pip install -U -r requirements/development.txt
 
 migrate:
 	python manage.py makemigrations
