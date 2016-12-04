@@ -40,7 +40,7 @@ services:
             - "15672:15672"
     {{ project_name }}-app:
         container_name: {{ project_name }}-app
-        image: khilnani/pythonlite:0.1
+        image: khilnani/pythonlite:0.4
         depends_on:
             - {{ project_name }}-postgres
             - {{ project_name }}-rabbit
@@ -63,7 +63,7 @@ services:
         entrypoint: /bin/sh /opt/{{ project_name }}/env/entrypoint-app.sh
     {{ project_name }}-worker:
         container_name: {{ project_name }}-worker
-        image: khilnani/pythonlite:0.1
+        image: khilnani/pythonlite:0.4
         depends_on:
             - {{ project_name }}-postgres
             - {{ project_name }}-rabbit
@@ -84,7 +84,7 @@ services:
         entrypoint: /bin/sh /opt/{{ project_name }}/env/entrypoint-worker.sh
     {{ project_name }}-beat:
         container_name: {{ project_name }}-beat
-        image: khilnani/pythonlite:0.1
+        image: khilnani/pythonlite:0.4
         depends_on:
             - {{ project_name }}-postgres
             - {{ project_name }}-rabbit
