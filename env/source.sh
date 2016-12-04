@@ -5,6 +5,5 @@ template_zip () {
 }
 
 template_create () {
-    mkdir $1
-    django-admin startproject $1 $1 --template=django-template.zip --extension=py,md,yml,ini,sh --name=Makefile,.coveragerc,.gitignore
+    PROJECT_NAME=$1; mkdir $PROJECT_NAME && django-admin startproject $PROJECT_NAME $PROJECT_NAME --template=django-template.zip --extension=py,md,yml,ini,sh --name=Makefile,.coveragerc,.gitignore
 }
