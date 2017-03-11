@@ -20,9 +20,9 @@ PROJECT_NAME="project_name"; mkdir $PROJECT_NAME && django-admin startproject $P
     - Services:
       - Requires a running RabbitMQ, Postgres and Memcached service
 - Docker
-  - > Check the `Makefile` for docker specific shortcuts for psql, ssh into containers etc.
   - Use docker compose to start up needed services and python dependencies already setup
     - `docker-compose up`
+  - Check the `Makefile` for docker specific shortcuts for psql, ssh into containers etc.
 - Setup DB
     - Update DB schema - `make migrate`
     - Admin user setup - `make admin`
