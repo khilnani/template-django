@@ -2,23 +2,14 @@ PROJECT_NAME = {{ project_name }}
 
 default: lint test
 
-test:
-	python manage.py makemigrations --dry-run | grep 'No changes detected' || \
-		(echo 'There are changes with migrations.' && exit 1)
-	coverage run manage.py test
-	coverage report -m --fail-under 80
-
-lint:
-	flake8
-
-clean:
-	find . -name "*.pyc" -exec rm -rf {} \;
-	rm -rf {{ project_name }}/static
-
 # Generate a random string of desired length
 generate-secret: length = 32
 generate-secret:
 	@strings /dev/urandom | grep -o '[[:alnum:]]' | head -n $(length) | tr -d '\n'; echo
+
+#####################################################
+# General / Setup / Cleanup
+#####################################################
 
 init:
 	virtualenv -p `which python2.7` $(WORKON_HOME)/{{ project_name }}
@@ -42,6 +33,10 @@ init:
 	@echo "make stop"
 	@echo ""
 
+clean:
+	find . -name "*.pyc" -exec rm -rf {} \;
+	rm -rf {{ project_name }}/static
+
 reset:
 	rm -rf $(WORKON_HOME)/{{ project_name }}
 
@@ -54,6 +49,38 @@ cleanq:
 r:
 	pip install -U -r requirements/development.txt
 
+#####################################################
+# Docker Utils
+#####################################################
+
+# Does not use the directory as the project name, uses the project name
+# impacts the docker created network name 
+up:
+        docker-compose --project-name {{ project_name }} up -d
+
+down:
+        docker-compose down
+
+# ssh into the postgres container, into psql
+ssh-psql:
+	docker exec -i -t {{ project_name }}-postgres psql -U postgres
+
+# ssh into the python app container
+ssh-app:
+        docker exec -i -t {{ project_name }}-app /bin/bash
+
+# ssh into the python worker container
+ssh-worker:
+        docker exec -i -t {{ project_name }}-worker /bin/bash
+
+# ssh into the python beat container
+ssh-beat:
+        docker exec -i -t {{ project_name }}-beat /bin/bash
+
+#####################################################
+# Django app setup / tests / utils
+#####################################################
+
 migrate:
 	python manage.py makemigrations
 	python manage.py migrate --run-syncdb
@@ -61,6 +88,19 @@ migrate:
 
 admin:
 	python manage.py createsuperuser
+
+test:
+	python manage.py makemigrations --dry-run | grep 'No changes detected' || \
+		(echo 'There are changes with migrations.' && exit 1)
+	coverage run manage.py test
+	coverage report -m --fail-under 80
+
+lint:
+	flake8
+
+#####################################################
+# Django app run time
+#####################################################
 
 beat:
 	# default
